@@ -108,7 +108,7 @@ public class DocumentController
          * 4. Return complete document information
          */
         @Operation(summary = "Get document by ID", description = "Retrieve a specific document by its ID including the file data (Base64 encoded)")
-        @GetMapping("/{documentId}")
+        @GetMapping("/get/{documentId}")
         public ResponseEntity<ApiResponse<DocumentDetailResponseDTO>> getDocumentById
         (
                         @Parameter(description = "Document ID", required = true)
@@ -133,7 +133,7 @@ public class DocumentController
          * 3. Optimized for performance when file content not needed
          */
         @Operation(summary = "Get document metadata", description = "Retrieve document metadata without the file data for performance")
-        @GetMapping("/{documentId}/metadata")
+        @GetMapping("/get/{documentId}/metadata")
         public ResponseEntity<ApiResponse<DocumentMetadata>> getDocumentMetadata
         (
                         @PathVariable Integer documentId)
@@ -160,7 +160,7 @@ public class DocumentController
          * 3. Useful for retrieving specific document types (e.g., profile photo)
          */
         @Operation(summary = "Get document by type", description = "Retrieve a document by its type for the current user")
-        @GetMapping("/type/{documentType}")
+        @GetMapping("/get/type/{documentType}")
         public ResponseEntity<ApiResponse<DocumentDetailResponseDTO>> getDocumentByType
         (
                         @Parameter(description = "Document type", required = true)
@@ -184,7 +184,7 @@ public class DocumentController
          * 3. Ordered by upload date (newest first)
          */
         @Operation(summary = "Get all user documents", description = "Retrieve all documents for the current user (without file data for performance)")
-        @GetMapping("/user/all")
+        @GetMapping("/get/user/all")
         public ResponseEntity<ApiResponse<List<DocumentResponseDTO>>> getAllDocumentsByUserId()
         {
 
@@ -207,7 +207,7 @@ public class DocumentController
          * 4. Useful for large document collections
          */
         @Operation(summary = "Get documents with pagination", description = "Retrieve documents for the current user with pagination support")
-        @GetMapping("/user/paginated")
+        @GetMapping("/get/user/paginated")
         public ResponseEntity<ApiResponse<PaginatedDocumentResponseDTO>> getDocumentsPaginated
         (
                         @Parameter(description = "Page number (0-based)")
@@ -264,7 +264,7 @@ public class DocumentController
          * 4. Save changes and return updated document
          */
         @Operation(summary = "Update document", description = "Update an existing document's file and/or description")
-        @PutMapping(value = "/{documentId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+        @PutMapping(value = "/upload/{documentId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
         public ResponseEntity<ApiResponse<DocumentResponseDTO>> updateDocument
         (
                         @Parameter(description = "Document ID to update", required = true)
@@ -294,7 +294,7 @@ public class DocumentController
          * 3. Clean up associated resources
          */
         @Operation(summary = "Delete document by ID", description = "Delete a specific document by its ID")
-        @DeleteMapping("/{documentId}")
+        @DeleteMapping("/delete/{documentId}")
         public ResponseEntity<ApiResponse<Void>> deleteDocument
         (
                         @Parameter(description = "Document ID to delete", required = true)
@@ -319,7 +319,7 @@ public class DocumentController
          * 3. Useful for replacing document types
          */
         @Operation(summary = "Delete document by type", description = "Delete a document by its type for the current user")
-        @DeleteMapping("/type/{documentType}")
+        @DeleteMapping("/delete/type/{documentType}")
         public ResponseEntity<ApiResponse<Void>> deleteDocumentByType
         (
                         @Parameter(description = "Document type to delete", required = true)
@@ -344,7 +344,7 @@ public class DocumentController
          * 3. Useful for UI logic and validation
          */
         @Operation(summary = "Check document existence", description = "Check if a document of specific type exists for the current user")
-        @GetMapping("/exists/{documentType}")
+        @GetMapping("/get/exists/{documentType}")
         public ResponseEntity<ApiResponse<Boolean>> checkDocumentExists
         (
                         @Parameter(description = "Document type to check", required = true)
@@ -368,7 +368,7 @@ public class DocumentController
          * 3. Useful for dashboard and statistics
          */
         @Operation(summary = "Get document count", description = "Get the total number of documents for the current user")
-        @GetMapping("/count")
+        @GetMapping("/get/count")
         public ResponseEntity<ApiResponse<Long>> getDocumentCount()
         {
 
@@ -388,7 +388,7 @@ public class DocumentController
          * 2. Useful for UI dropdowns and validation
          */
         @Operation(summary = "Get available document types", description = "Retrieve all available document types that can be uploaded")
-        @GetMapping("/types")
+        @GetMapping("/get/types")
         public ResponseEntity<ApiResponse<DocumentType[]>> getDocumentTypes()
         {
 
@@ -406,7 +406,7 @@ public class DocumentController
          * 3. Useful for client-side validation and UI
          */
         @Operation(summary = "Get upload configuration", description = "Get system configuration for file uploads including size limits and supported types")
-        @GetMapping("/config")
+        @GetMapping("/get/config")
         public ResponseEntity<ApiResponse<Object>> getUploadConfig()
         {
 
