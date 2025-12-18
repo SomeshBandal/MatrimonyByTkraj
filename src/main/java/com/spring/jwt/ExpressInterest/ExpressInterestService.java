@@ -1,6 +1,8 @@
 package com.spring.jwt.ExpressInterest;
 
 
+import com.spring.jwt.entity.Enums.InterestStatus;
+
 import java.util.List;
 
 public interface ExpressInterestService {
@@ -13,7 +15,7 @@ public interface ExpressInterestService {
 
     List<ExpressInterestDTO> getReceived1(Integer userId);
 
-    ExpressInterestDTO updateStatus(Long id, String status);
+    ExpressInterestDTO updateStatus(Long id, InterestStatus status);
 
     void delete(Long id);
 

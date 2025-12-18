@@ -9,13 +9,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user-views")
+@RequestMapping("/api/v1/userViews")
 public class UserViewController {
 
     private final UserViewService userViewService;
 
 
-    @GetMapping("/{userId}")
+    @GetMapping("/get/{userId}")
     public ResponseEntity<ResponseDto<List<UserViewWithContactDTO>>> getViewsByUserId(@PathVariable Integer userId) {
 
         List<UserViewWithContactDTO> result = userViewService.getByUserId(userId);

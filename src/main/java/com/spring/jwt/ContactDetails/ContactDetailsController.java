@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/contact")
+@RequestMapping("/api/v1/contact")
 @RequiredArgsConstructor
 public class ContactDetailsController {
 
     private final ContactDetailsService service;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ResponseDto<?>> create(@RequestBody ContactDetailsDTO dto) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Created successfully", service.create(dto)));
@@ -23,7 +23,7 @@ public class ContactDetailsController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ResponseDto<?>> get(@PathVariable Integer id) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Record found", service.getById(id)));
@@ -32,12 +32,12 @@ public class ContactDetailsController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<ResponseDto<?>> getAll() {
         return ResponseEntity.ok(ResponseDto.success("List fetched", service.getAll()));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update/{id}")
     public ResponseEntity<ResponseDto<?>> update(@PathVariable Integer id, @RequestBody ContactDetailsDTO dto) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Updated successfully", service.update(id, dto)));
@@ -46,7 +46,7 @@ public class ContactDetailsController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDto<?>> delete(@PathVariable Integer id) {
         try {
             service.delete(id);
@@ -56,7 +56,7 @@ public class ContactDetailsController {
         }
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/getUser/{userId}")
     public ResponseEntity<ResponseDto<ContactDetailsDTO>> getByUserId(@PathVariable Integer userId) {
         try {
             ContactDetailsDTO dto = service.getByUserId(userId);
