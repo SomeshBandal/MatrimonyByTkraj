@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/user-profile")
+@RequestMapping("/api/v1/profile")
 @RequiredArgsConstructor
 public class UserProfileController {
 
     private final UserProfileService userProfileService;
 
     // CREATE
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ResponseDto<?>> create(@RequestBody UserProfileDTO2 dto) {
         try {
             UserProfileDTO2 saved = userProfileService.createUserProfile(dto);
@@ -27,7 +27,7 @@ public class UserProfileController {
     }
 
     // GET BY ID
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ResponseDto<?>> getById(@PathVariable Integer id) {
         try {
             UserProfileDTO2 profile = userProfileService.getUserProfileById(id);
@@ -39,7 +39,7 @@ public class UserProfileController {
     }
 
     // GET ALL
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<ResponseDto<?>> getAll() {
         try {
             return ResponseEntity.ok(
@@ -52,7 +52,7 @@ public class UserProfileController {
     }
 
     // PATCH UPDATE (Partial Update)
-    @PatchMapping("/{id}")
+    @PatchMapping("/update/{id}")
     public ResponseEntity<ResponseDto<?>> update(@PathVariable Integer id,
                                                  @RequestBody UserProfileDTO2 dto) {
         try {
@@ -65,7 +65,7 @@ public class UserProfileController {
     }
 
     // DELETE
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDto<?>> delete(@PathVariable Integer id) {
         try {
             userProfileService.deleteUserProfile(id);

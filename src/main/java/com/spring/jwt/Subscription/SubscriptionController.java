@@ -7,33 +7,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/subscription")
+@RequestMapping("/api/v1/subscription")
 @RequiredArgsConstructor
 public class SubscriptionController {
 
     private final SubscriptionService service;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseDto<SubscriptionDTO> create(@RequestBody SubscriptionDTO dto) {
         return ResponseDto.success("Subscription created", service.create(dto));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseDto<SubscriptionDTO> getById(@PathVariable Integer id) {
         return ResponseDto.success("Subscription fetched", service.getById(id));
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseDto<List<SubscriptionDTO>> getAll() {
         return ResponseDto.success("Subscription list", service.getAll());
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update/{id}")
     public ResponseDto<SubscriptionDTO> update(@PathVariable Integer id, @RequestBody SubscriptionDTO dto) {
         return ResponseDto.success("Subscription updated", service.update(id, dto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseDto<?> delete(@PathVariable Integer id) {
         service.delete(id);
         return ResponseDto.success("Subscription deleted", null);

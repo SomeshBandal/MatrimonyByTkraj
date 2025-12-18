@@ -6,13 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/family")
+@RequestMapping("/api/v1/familyBackground")
 @RequiredArgsConstructor
 public class FamilyBackgroundController {
 
     private final FamilyBackgroundService service;
 
-    @PostMapping("add")
+    @PostMapping("/create")
     public ResponseEntity<ResponseDto<?>> create(@RequestBody FamilyBackgroundDTO dto) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Created", service.create(dto)));
@@ -22,7 +22,7 @@ public class FamilyBackgroundController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ResponseDto<?>> getById(@PathVariable Integer id) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Fetched", service.getById(id)));
@@ -32,7 +32,7 @@ public class FamilyBackgroundController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<ResponseDto<?>> getAll() {
         try {
             return ResponseEntity.ok(ResponseDto.success("Fetched", service.getAll()));
@@ -42,7 +42,7 @@ public class FamilyBackgroundController {
         }
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update/{id}")
     public ResponseEntity<ResponseDto<?>> update(@PathVariable Integer id, @RequestBody FamilyBackgroundDTO dto) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Updated", service.update(id, dto)));
@@ -52,7 +52,7 @@ public class FamilyBackgroundController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDto<?>> delete(@PathVariable Integer id) {
         try {
             service.delete(id);

@@ -6,13 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/horoscope")
+@RequestMapping("/api/v1/horoscope")
 @RequiredArgsConstructor
 public class HoroscopeDetailsController {
 
     private final HoroscopeDetailsService horoscopeService;
 
-    @PostMapping("/add")
+    @PostMapping("/create")
     public ResponseEntity<ResponseDto<?>> create(@RequestBody HoroscopeDetailsDTO dto) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Created successfully",
@@ -23,7 +23,7 @@ public class HoroscopeDetailsController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ResponseDto<?>> getById(@PathVariable Integer id) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Fetched successfully",
@@ -34,7 +34,7 @@ public class HoroscopeDetailsController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping("/getAll")
     public ResponseEntity<ResponseDto<?>> getAll() {
         try {
             return ResponseEntity.ok(ResponseDto.success("Fetched successfully",
@@ -45,7 +45,7 @@ public class HoroscopeDetailsController {
         }
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update/{id}")
     public ResponseEntity<ResponseDto<?>> update(@PathVariable Integer id,
                                                  @RequestBody HoroscopeDetailsDTO dto) {
         try {
@@ -57,7 +57,7 @@ public class HoroscopeDetailsController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDto<?>> delete(@PathVariable Integer id) {
         try {
             horoscopeService.delete(id);
