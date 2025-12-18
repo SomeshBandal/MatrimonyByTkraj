@@ -23,7 +23,7 @@ public class FavoriteController {
         return ResponseDto.success("Favorites List", favoriteService.getFavoritesByUser(userId));
     }
 
-    @DeleteMapping("/{mainUserId}/{favoriteUserId}")
+    @DeleteMapping("/delete/{mainUserId}/{favoriteUserId}")
     public ResponseDto<?> remove(@PathVariable Integer mainUserId, @PathVariable Integer favoriteUserId) {
         favoriteService.removeFavorite(mainUserId, favoriteUserId);
         return ResponseDto.success("Removed from favorites", null);
