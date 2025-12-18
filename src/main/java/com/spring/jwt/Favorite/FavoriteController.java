@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/favorite")
+@RequestMapping("/api/v1/favorite")
 @RequiredArgsConstructor
 public class FavoriteController {
 
     private final FavoriteService favoriteService;
 
-    @PostMapping("add")
+    @PostMapping("/create")
     public ResponseDto<FavoriteDTO> add(@RequestBody FavoriteDTO dto) {
         return ResponseDto.success("Added to favorites", favoriteService.addFavorite(dto));
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/get/{userId}")
     public ResponseDto<List<FavoriteDTO>> getByUser(@PathVariable Integer userId) {
         return ResponseDto.success("Favorites List", favoriteService.getFavoritesByUser(userId));
     }

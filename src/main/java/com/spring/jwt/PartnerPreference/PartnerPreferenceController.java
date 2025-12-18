@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/partner-preference")
+@RequestMapping("/api/v1/partnerPreference")
 @RequiredArgsConstructor
 public class PartnerPreferenceController {
 
     private final PartnerPreferenceService partnerPreferenceService;
 
-    @PostMapping("/add")
+    @PostMapping("/create")
     public ResponseEntity<ResponseDto<?>> create(@RequestBody PartnerPreferenceDTO dto) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Created successfully",
@@ -25,7 +25,7 @@ public class PartnerPreferenceController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ResponseDto<?>> getById(@PathVariable Integer id) {
         try {
             return ResponseEntity.ok(
@@ -37,7 +37,7 @@ public class PartnerPreferenceController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping("/getAll")
     public ResponseEntity<ResponseDto<?>> getAll() {
         try {
             return ResponseEntity.ok(
@@ -49,7 +49,7 @@ public class PartnerPreferenceController {
         }
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update/{id}")
     public ResponseEntity<ResponseDto<?>> update(@PathVariable Integer id,
                                                  @RequestBody PartnerPreferenceDTO dto) {
         try {
@@ -62,7 +62,7 @@ public class PartnerPreferenceController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDto<?>> delete(@PathVariable Integer id) {
         try {
             partnerPreferenceService.delete(id);
