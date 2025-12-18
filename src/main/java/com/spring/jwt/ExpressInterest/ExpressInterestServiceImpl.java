@@ -73,11 +73,11 @@ public class ExpressInterestServiceImpl implements ExpressInterestService {
     }
 
     @Override
-    public ExpressInterestDTO updateStatus(Long id, String status) {
+    public ExpressInterestDTO updateStatus(Long id, InterestStatus status) {
         ExpressInterest e = repo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Interest not found"));
 
-        e.setStatus(InterestStatus.valueOf(status.toUpperCase()));
+      //  e.setStatus(InterestStatus.valueOf(status.toUpperCase()));
 
         ExpressInterest saved = repo.save(e);
 

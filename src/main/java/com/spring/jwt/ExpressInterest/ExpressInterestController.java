@@ -1,6 +1,7 @@
 package com.spring.jwt.ExpressInterest;
 
 import com.spring.jwt.dto.ResponseDto;
+import com.spring.jwt.entity.Enums.InterestStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/interests")
+@RequestMapping("/api/v1/interests")
 @RequiredArgsConstructor
 public class ExpressInterestController {
 
     private final ExpressInterestService service;
 
-    @PostMapping("/add")
+    @PostMapping("/send")
     public ResponseEntity<ResponseDto<?>> create(@RequestBody ExpressInterestDTO dto) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Interest sent", service.create(dto)));
@@ -25,7 +26,7 @@ public class ExpressInterestController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ResponseDto<?>> getById(@PathVariable Long id) {
         return ResponseEntity.ok(ResponseDto.success("Found", service.getById(id)));
     }
@@ -41,11 +42,11 @@ public class ExpressInterestController {
     }
 
     @PatchMapping("/{id}/status/{status}")
-    public ResponseEntity<ResponseDto<?>> updateStatus(@PathVariable Long id, @PathVariable String status) {
+    public ResponseEntity<ResponseDto<?>> updateStatus(@PathVariable Long id, @PathVariable InterestStatus status) {
         return ResponseEntity.ok(ResponseDto.success("Status updated", service.updateStatus(id, status)));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDto<?>> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.ok(ResponseDto.success("Deleted", null));

@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/education")
+@RequestMapping("/api/v1/education")
 @RequiredArgsConstructor
 public class EducationAndProfessionController {
 
     private final EducationAndProfessionService educationService;
 
-    @PostMapping("add")
+    @PostMapping("/create")
     public ResponseEntity<ResponseDto<?>> create(@RequestBody EducationAndProfessionDTO dto) {
         try {
             EducationAndProfessionDTO saved = educationService.create(dto);
@@ -25,7 +25,7 @@ public class EducationAndProfessionController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ResponseDto<?>> getById(@PathVariable Integer id) {
         try {
             EducationAndProfessionDTO dto = educationService.getById(id);
@@ -36,7 +36,7 @@ public class EducationAndProfessionController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<ResponseDto<?>> getAll() {
         try {
             List<EducationAndProfessionDTO> list = educationService.getAll();
@@ -47,7 +47,7 @@ public class EducationAndProfessionController {
         }
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update/{id}")
     public ResponseEntity<ResponseDto<?>> update(@PathVariable Integer id, @RequestBody EducationAndProfessionDTO dto) {
         try {
             EducationAndProfessionDTO updated = educationService.update(id, dto);

@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user-credit")
+@RequestMapping("api/v1/userCredit")
 @RequiredArgsConstructor
 public class UserCreditController {
 
     private final UserCreditService service;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ResponseDto<?>> create(@RequestBody UserCreditDTO dto) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Created", service.create(dto)));
@@ -23,7 +23,7 @@ public class UserCreditController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ResponseDto<?>> getById(@PathVariable Integer id) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Success", service.getById(id)));
@@ -32,12 +32,12 @@ public class UserCreditController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<ResponseDto<?>> getAll() {
         return ResponseEntity.ok(ResponseDto.success("Success", service.getAll()));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ResponseDto<?>> update(@PathVariable Integer id, @RequestBody UserCreditDTO dto) {
         try {
             return ResponseEntity.ok(ResponseDto.success("Updated", service.update(id, dto)));
@@ -46,7 +46,7 @@ public class UserCreditController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDto<?>> delete(@PathVariable Integer id) {
         try {
             service.delete(id);
@@ -56,7 +56,7 @@ public class UserCreditController {
         }
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/get/{userId}")
     public ResponseEntity<ResponseDto<UserCreditDTO>> getByUserId(@PathVariable Integer userId) {
 
         try {

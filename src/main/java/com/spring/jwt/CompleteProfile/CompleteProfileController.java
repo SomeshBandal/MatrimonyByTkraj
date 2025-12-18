@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/complete-profile")
+@RequestMapping("/api/v1/completeProfile")
 @RequiredArgsConstructor
 public class CompleteProfileController {
 
     private final CompleteProfileService service;
 
-    @GetMapping("/{userId}")
+    @GetMapping("/get/{userId}")
     public ResponseEntity<CompleteProfileDTO> getFullProfile(@PathVariable Integer userId) {
         return ResponseEntity.ok(service.getByUserId(userId));
     }
