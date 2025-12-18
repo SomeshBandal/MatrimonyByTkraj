@@ -16,6 +16,8 @@ public class CompleteProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer completeProfileId;
 
+    @Column(length = 45)
+    private String statusCol;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userProfileId")

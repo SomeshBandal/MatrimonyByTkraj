@@ -54,7 +54,7 @@ public HoroscopeDetailsDTO create(HoroscopeDetailsDTO dto) {
         throw new IllegalArgumentException("userId must be provided");
     }
     Integer userId = dto.getUserId();
-    User user = userRepo.findById(Long.valueOf(userId))
+    User user = userRepo.findById(userId)
             .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
     Optional<HoroscopeDetails> existing = horoscopeRepo.findByUser_Id(userId);
     if (existing.isPresent()) {

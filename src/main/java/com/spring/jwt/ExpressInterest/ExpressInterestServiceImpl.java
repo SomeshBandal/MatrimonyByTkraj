@@ -30,7 +30,7 @@ public class ExpressInterestServiceImpl implements ExpressInterestService {
     @Transactional
     public ExpressInterestDTO create(ExpressInterestDTO dto) {
 
-        User fromUser = userRepo.findById(Long.valueOf(dto.getFromUser()))
+        User fromUser = userRepo.findById(dto.getFromUser())
                 .orElseThrow(() -> new ResourceNotFoundException("Sender not found"));
 
         dto.setCreatedAt(LocalDateTime.now());
@@ -133,7 +133,7 @@ public class ExpressInterestServiceImpl implements ExpressInterestService {
     }
 
     private void validateUser(Integer userId) {
-        if (!userRepo.existsById(Long.valueOf(userId))) {
+        if (!userRepo.existsById(userId)) {
             throw new ResourceNotFoundException("User not found with ID: " + userId);
         }
     }

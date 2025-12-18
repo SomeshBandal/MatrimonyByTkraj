@@ -34,7 +34,7 @@ public class FamilyBackgroundServiceImpl implements FamilyBackgroundService {
         Integer userId = dto.getUserId();
         if (familyRepo.existsByUser_Id(userId))
             throw new ResourceAlreadyExistsException("Family background already exists for userId: " + userId);
-        User user = userRepo.findById(Long.valueOf(userId))
+        User user = userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
         FamilyBackground entity = FamilyBackgroundMapper.toEntity(dto, user);
         FamilyBackground saved = familyRepo.save(entity);

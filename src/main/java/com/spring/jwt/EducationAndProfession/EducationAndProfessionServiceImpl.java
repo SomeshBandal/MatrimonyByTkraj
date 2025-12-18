@@ -34,7 +34,7 @@ public class EducationAndProfessionServiceImpl implements EducationAndProfession
         if (educationRepo.existsByUser_Id(userId)) {
             throw new ResourceAlreadyExistsException("Education & Profession already exists for userId: " + userId);
         }
-        User user = userRepo.findById(Long.valueOf(userId))
+        User user = userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
 
         EducationAndProfession entity = EducationAndProfessionMapper.toEntity(dto, user);

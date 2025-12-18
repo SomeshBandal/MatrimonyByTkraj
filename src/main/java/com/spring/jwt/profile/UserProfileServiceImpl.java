@@ -72,7 +72,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         if (userProfileRepository.existsByUser_Id(userId)) {
             throw new ResourceAlreadyExistsException("UserProfile already exists for userId: " + userId);
         }
-        User user = userRepository.findById(Long.valueOf(userId))
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
         UserProfile profile = UserProfileMapper.toEntity(dto, user);
         UserProfile savedProfile = userProfileRepository.save(profile);

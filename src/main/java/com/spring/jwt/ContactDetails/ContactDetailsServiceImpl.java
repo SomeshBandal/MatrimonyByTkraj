@@ -36,7 +36,7 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     public ContactDetailsDTO create(ContactDetailsDTO dto) {
 
         Integer userId = dto.getUserId();
-        User user = userRepo.findById(Long.valueOf(userId))
+        User user = userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
         if (contactRepo.findByUser_Id(userId).isPresent()) {
             throw new ResourceAlreadyExistsException("Contact details already exist for this user: " + userId);
@@ -113,17 +113,17 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     @Override
     @Transactional
     public ContactDetailsDTO getByUserId(Integer targetUserId) {
-        Integer viewerId = securityUtil.getLoggedInUserId();
+        Integer viewerId = securityUtil.getCurrentUserId();
         if (viewerId == null) {
             throw new UnauthorizedException("User not authenticated");
         }
         if (viewerId.equals(targetUserId)) {
             throw new IllegalStateException("You cannot view your own contact details");
         }
-        User viewer = userRepo.findById(Long.valueOf(viewerId))
+        User viewer = userRepo.findById(viewerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Viewer user not found"));
 
-        User target = userRepo.findById(Long.valueOf(targetUserId))
+        User target = userRepo.findById(targetUserId)
                 .orElseThrow(() -> new ResourceNotFoundException("Target user not found"));
 
         if (viewer.getGender() == target.getGender()) {

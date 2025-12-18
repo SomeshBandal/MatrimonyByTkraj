@@ -37,7 +37,7 @@ public class PartnerPreferenceServiceImpl implements PartnerPreferenceService {
         if (repo.existsByUser_Id(userId))
             throw new ResourceAlreadyExistsException("Partner Preference already exists for userId: " + userId);
 
-        User user = userRepo.findById(Long.valueOf(userId))
+        User user = userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
 
         PartnerPreference entity = PartnerPreferenceMapper.toEntity(dto, user);

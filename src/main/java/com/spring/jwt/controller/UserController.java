@@ -7,7 +7,7 @@ import com.spring.jwt.repository.UserRepository;
 import com.spring.jwt.service.UserService;
 import com.spring.jwt.utils.BaseResponseDTO;
 import com.spring.jwt.utils.EncryptionUtil;
-import com.spring.jwt.utils.ErrorResponseDto;
+import com.spring.jwt.utils.ErrorResponseDTO;
 import com.spring.jwt.utils.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -89,14 +89,14 @@ public class UserController {
                     responseCode = "400",
                     description = "Invalid input or account already exists",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Internal server error",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
@@ -130,14 +130,14 @@ public class UserController {
                     responseCode = "400",
                     description = "Invalid email address",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "User not found",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
@@ -210,7 +210,7 @@ public class UserController {
                     responseCode = "400",
                     description = "Invalid input, token expired, or password validation failed",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
@@ -244,14 +244,14 @@ public class UserController {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "403",
                     description = "Forbidden - Insufficient permissions",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
@@ -307,21 +307,21 @@ public class UserController {
                     responseCode = "404",
                     description = "User not found",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
     @GetMapping("/{id}")
 //    @PreAuthorize("hasAuthority('STUDENT')")
     public ResponseEntity<UserDTO> getUserById(
-            @PathVariable @Min(value = 1, message = "Invalid user ID") Long id) {
+            @PathVariable @Min(value = 1, message = "Invalid user ID") Integer id) {
         UserDTO user = userService.getUserById(id);
 
 //        try {
@@ -357,20 +357,20 @@ public class UserController {
                     responseCode = "404",
                     description = "User not found",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
     @GetMapping("/profile/{id}")
     public ResponseEntity<UserProfileDTO> getUserProfile(
-            @PathVariable @Min(value = 1, message = "Invalid user ID") Long id) {
+            @PathVariable @Min(value = 1, message = "Invalid user ID") Integer id) {
         UserProfileDTO userProfileById = userService.getUserProfileById(id);
 
 //        try {
@@ -408,7 +408,7 @@ public class UserController {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
@@ -451,27 +451,27 @@ public class UserController {
                     responseCode = "400",
                     description = "Invalid input data",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "User not found",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "401",
                     description = "Unauthorized",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })
     @PatchMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(
-            @PathVariable @Min(value = 1, message = "Invalid user ID") Long id,
+            @PathVariable @Min(value = 1, message = "Invalid user ID") Integer id,
             @Valid @RequestBody UserUpdateRequest request) {
         UserDTO updatedUser = userService.updateUser(id, request);
         return ResponseEntity.ok(updatedUser);
@@ -492,21 +492,21 @@ public class UserController {
                     responseCode = "401",
                     description = "Unauthorized",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "User not found",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             ),
             @ApiResponse(
                     responseCode = "500",
                     description = "Internal server error",
                     content = @Content(
-                            schema = @Schema(implementation = ErrorResponseDto.class)
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
                     )
             )
     })

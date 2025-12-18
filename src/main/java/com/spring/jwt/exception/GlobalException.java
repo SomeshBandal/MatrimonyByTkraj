@@ -4,9 +4,8 @@ package com.spring.jwt.exception;
 import com.spring.jwt.ContactDetails.UnauthorizedException;
 import com.spring.jwt.ExpressInterest.InvalidStatusException;
 import com.spring.jwt.HoroscopeDetails.ResourceAlreadyExistsException;
-import com.spring.jwt.dto.ResponseDto;
 import com.spring.jwt.utils.BaseResponseDTO;
-import com.spring.jwt.utils.ErrorResponseDto;
+import com.spring.jwt.utils.ErrorResponseDTO;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -59,9 +58,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(UserNotFoundExceptions.class)
-    public ResponseEntity<ErrorResponseDto> handleUserNotFoundException(UserNotFoundExceptions exception, WebRequest webRequest){
+    public ResponseEntity<ErrorResponseDTO> handleUserNotFoundException(UserNotFoundExceptions exception, WebRequest webRequest){
         log.error("User not found: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
@@ -71,9 +70,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(PageNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handlePageNotFoundException(PageNotFoundException exception, WebRequest webRequest){
+    public ResponseEntity<ErrorResponseDTO> handlePageNotFoundException(PageNotFoundException exception, WebRequest webRequest){
         log.error("Page not found: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.NOT_FOUND,
                 exception.getMessage(),
@@ -83,9 +82,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({EmptyFieldException.class, UserAlreadyExistException.class})
-    public ResponseEntity<ErrorResponseDto> handleCommonExceptions(RuntimeException exception, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponseDTO> handleCommonExceptions(RuntimeException exception, WebRequest webRequest) {
         log.error("Validation error: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
@@ -95,9 +94,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(InvalidOtpException.class)
-    public ResponseEntity<ErrorResponseDto> handleInvalidOtpException(InvalidOtpException exception, WebRequest webRequest){
+    public ResponseEntity<ErrorResponseDTO> handleInvalidOtpException(InvalidOtpException exception, WebRequest webRequest){
         log.error("Invalid OTP: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
@@ -107,9 +106,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(OtpExpiredException.class)
-    public ResponseEntity<ErrorResponseDto> handleOtpExpiredException(OtpExpiredException exception, WebRequest webRequest){
+    public ResponseEntity<ErrorResponseDTO> handleOtpExpiredException(OtpExpiredException exception, WebRequest webRequest){
         log.error("OTP expired: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
@@ -119,9 +118,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EmailNotVerifiedException.class)
-    public ResponseEntity<ErrorResponseDto> handleEmailNotVerifiedException(EmailNotVerifiedException exception, WebRequest webRequest){
+    public ResponseEntity<ErrorResponseDTO> handleEmailNotVerifiedException(EmailNotVerifiedException exception, WebRequest webRequest){
         log.error("Email not verified: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
@@ -131,9 +130,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ErrorResponseDto> handleAuthenticationException(AuthenticationException exception, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponseDTO> handleAuthenticationException(AuthenticationException exception, WebRequest webRequest) {
         log.error("Authentication error: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.UNAUTHORIZED,
                 "Authentication failed: " + exception.getMessage(),
@@ -143,9 +142,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ErrorResponseDto> handleBadCredentialsException(BadCredentialsException exception, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponseDTO> handleBadCredentialsException(BadCredentialsException exception, WebRequest webRequest) {
         log.error("Bad credentials: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.UNAUTHORIZED,
                 "Invalid username or password",
@@ -155,9 +154,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorResponseDto> handleAccessDeniedException(AccessDeniedException exception, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponseDTO> handleAccessDeniedException(AccessDeniedException exception, WebRequest webRequest) {
         log.error("Access denied: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.FORBIDDEN,
                 "Access denied: You don't have permission to access this resource",
@@ -167,9 +166,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(DataAccessException.class)
-    public ResponseEntity<ErrorResponseDto> handleDataAccessException(DataAccessException exception, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponseDTO> handleDataAccessException(DataAccessException exception, WebRequest webRequest) {
         log.error("Database error: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 "Database error occurred",
@@ -180,7 +179,7 @@ public class GlobalException extends ResponseEntityExceptionHandler {
 
     // KEEP ONLY ONE handler for MethodArgumentTypeMismatchException!
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<ErrorResponseDto> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException exception, WebRequest request) {
+    public ResponseEntity<ErrorResponseDTO> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException exception, WebRequest request) {
         log.error("Type mismatch: {}", exception.getMessage());
         String error;
         if (exception.getRequiredType() != null) {
@@ -188,7 +187,7 @@ public class GlobalException extends ResponseEntityExceptionHandler {
         } else {
             error = exception.getName() + " has an invalid type";
         }
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 request.getDescription(false),
                 HttpStatus.BAD_REQUEST,
                 error,
@@ -236,6 +235,24 @@ public class GlobalException extends ResponseEntityExceptionHandler {
                 ));
     }
 
+    /**
+     * Handle unauthorized access exceptions
+     */
+    @ExceptionHandler(UnauthorizedAccessException.class)
+    public ResponseEntity<ErrorResponseDTO> handleUnauthorizedAccessException(
+            UnauthorizedAccessException exception,
+            WebRequest webRequest) {
+        log.error("Unauthorized access: {}", exception.getMessage());
+
+        ErrorResponseDTO errorResponse = new ErrorResponseDTO(
+                webRequest.getDescription(false),
+                HttpStatus.FORBIDDEN,
+                exception.getMessage(),
+                LocalDateTime.now());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> handleResourceNotFound(ResourceNotFoundException ex) {
         Map<String, Object> body = new HashMap<>();
@@ -247,9 +264,9 @@ public class GlobalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDto> handleAllUncaughtException(Exception exception, WebRequest webRequest) {
+    public ResponseEntity<ErrorResponseDTO> handleAllUncaughtException(Exception exception, WebRequest webRequest) {
         log.error("Uncaught error occurred: ", exception);
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 "An unexpected error occurred",
@@ -258,10 +275,22 @@ public class GlobalException extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(DocumentProcessingException.class)
+    public ResponseEntity<ErrorResponseDTO> HandleDocumentProcessingException(DocumentProcessingException exception,
+                                                                              WebRequest webRequest) {
+        log.error("Error occured while processing the document: {}", exception.getMessage());
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
+                webRequest.getDescription(false),
+                HttpStatus.NOT_FOUND,
+                exception.getMessage(),
+                LocalDateTime.now());
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(ExamTimeWindowException.class)
-    public ResponseEntity<ErrorResponseDto> handleExamTimeWindowException(ExamTimeWindowException exception, WebRequest webRequest){
+    public ResponseEntity<ErrorResponseDTO> handleExamTimeWindowException(ExamTimeWindowException exception, WebRequest webRequest){
         log.error("Exam time window error: {}", exception.getMessage());
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+        ErrorResponseDTO errorResponseDto = new ErrorResponseDTO(
                 webRequest.getDescription(false),
                 HttpStatus.BAD_REQUEST,
                 exception.getMessage(),
@@ -321,4 +350,30 @@ public class GlobalException extends ResponseEntityExceptionHandler {
         );
     }
 
+    @ExceptionHandler(DocumentAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDTO> handleDocumentAlreadyExists(DocumentAlreadyExistsException ex,
+                                                                        WebRequest webRequest) {
+        log.warn("Document already exists: {}", ex.getMessage());
+        ErrorResponseDTO errorResponse = new ErrorResponseDTO(
+                webRequest.getDescription(false),
+                HttpStatus.BAD_REQUEST,
+                ex.getMessage(),
+                LocalDateTime.now());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DocumentNotFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleDocumentNotFoundException(
+            DocumentNotFoundException exception,
+            WebRequest webRequest) {
+        log.error("Document not found: {}", exception.getMessage());
+
+        ErrorResponseDTO errorResponse = new ErrorResponseDTO(
+                webRequest.getDescription(false),
+                HttpStatus.NOT_FOUND,
+                exception.getMessage(),
+                LocalDateTime.now());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
 }

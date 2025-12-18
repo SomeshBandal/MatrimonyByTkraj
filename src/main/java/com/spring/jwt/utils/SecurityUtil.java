@@ -1,26 +1,61 @@
 package com.spring.jwt.utils;
 
+import com.spring.jwt.service.security.UserDetailsCustom;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SecurityUtil {
+public final class SecurityUtil
+{
+    public static Integer getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-    public Integer getLoggedInUserId() {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (auth == null || !auth.isAuthenticated()) {
-            return null;
+        if (authentication == null) {
+            throw new IllegalStateException("SecurityContext does not contain an authentication object. User may not be logged in.");
         }
 
-        Object principal = auth.getPrincipal();
-
-        if (principal instanceof CustomUserDetails userDetails) {
-            return userDetails.getUserId();
+        if (!authentication.isAuthenticated()) {
+            throw new IllegalStateException("User is not authenticated. Please login again.");
         }
 
-        return null;
+        Object principal = authentication.getPrincipal();
+
+        if (principal == null || principal.equals("anonymousUser")) {
+            throw new IllegalStateException("No authenticated principal found. Please login to access this resource.");
+        }
+
+        // Handle UserDetailsCustom (expected case)
+        if (principal instanceof UserDetailsCustom customUser) {
+            Integer id = customUser.getUserId();
+            if (id == null) {
+                throw new IllegalStateException("Authenticated user does not have a valid user ID. Please contact support.");
+            }
+            return id;
+        }
+
+        // Handle String principal (legacy/fallback case - should be fixed by JWT filter update)
+        if (principal instanceof String username) {
+            throw new IllegalStateException(
+                    "Authentication principal is a String (" + username + ") instead of UserDetailsCustom. " +
+                            "This indicates a JWT authentication configuration issue. Please logout and login again."
+            );
+        }
+
+        // Handle other UserDetails implementations
+        if (principal instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
+            throw new IllegalStateException(
+                    "Principal is a Spring UserDetails (" + userDetails.getClass().getSimpleName() +
+                            ") but not UserDetailsCustom. The JWT filter should load UserDetailsCustom objects."
+            );
+        }
+
+        // Unknown principal type
+        throw new IllegalStateException(
+                "Unexpected principal type: " + principal.getClass().getName() +
+                        ". Expected UserDetailsCustom but got " + principal.getClass().getSimpleName() +
+                        ". This indicates an authentication configuration issue."
+        );
     }
+
 }
